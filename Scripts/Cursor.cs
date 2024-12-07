@@ -8,6 +8,7 @@ public class Cursor : MonoBehaviour
     public float mouseSensivity = 2f;
     float cameraVerticalRotation = 0f;
 
+
     //bool lockedCursor = true;
 
     void Start()
@@ -15,7 +16,6 @@ public class Cursor : MonoBehaviour
         //Lock and Hide Cursor
         /*Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;*/
-
     }
 
     // Update is called once per frame
@@ -26,16 +26,13 @@ public class Cursor : MonoBehaviour
         float inputY = Input.GetAxis("Mouse Y") * mouseSensivity;
 
         //Rotate the Camera around its local X axis
-        /*
         cameraVerticalRotation -= inputY;
         cameraVerticalRotation = Mathf.Clamp(cameraVerticalRotation, -90f, 90f);
-        transform.localEulerAngles = Vector3.right * cameraVerticalRotation; */
+        transform.localEulerAngles = Vector3.right * cameraVerticalRotation;
 
-        cameraVerticalRotation = inputY;
-        cameraVerticalRotation = Mathf.Clamp(cameraVerticalRotation, -90f, 90f); 
-        player.Rotate(Vector3.right * cameraVerticalRotation);
-
-        //Rotate the Player Object and the Camera around its Y axis
         player.Rotate(Vector3.up * inputX);
     }
 }
+
+
+

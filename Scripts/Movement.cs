@@ -4,9 +4,7 @@ using UnityEngine.UIElements;
 public class Movement : MonoBehaviour
 {
     Rigidbody rb;
-    public float speed = 3f;
-    public GameObject Camera;
-    public GameObject Player;
+    public float speed = 10f;
 
     // Update is called once per frame
 
@@ -23,27 +21,22 @@ public class Movement : MonoBehaviour
         // Move the player based on input and their local rotation
         if (Input.GetKey(KeyCode.W))
         {
-            rb.AddForce(forward * speed);
+            transform.position += (forward * speed * Time.deltaTime); // Move forward
         }
 
         if (Input.GetKey(KeyCode.S))
         {
-            rb.AddForce(-forward * speed); // Move backward
+            transform.position += (-forward * speed * Time.deltaTime); // Move backward
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            rb.AddForce(-right * speed); // Move left
+            transform.position += (-right * speed * Time.deltaTime); // Move left
         }
 
         if (Input.GetKey(KeyCode.D))
         {
-            rb.AddForce(right * speed); // Move right
-        }
-
-        if (Input.GetKey(KeyCode.V))
-        {
-            rb.MoveRotation(rb.rotation * Quaternion.Euler(0, 1, 0));
+            transform.position += (right * speed * Time.deltaTime); // Move right
         }
     }
 }
