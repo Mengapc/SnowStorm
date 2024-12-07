@@ -33,11 +33,11 @@ public class Crosshair : MonoBehaviour
 
 
 
-        if (Movement.andando == true && Movement.speed == 10f) 
+        if (Movement.andando == true && Movement.andando_rapido == true)
         {
             Value = 5;
         }
-        if (Movement.andando == true && Movement.speed == 5f)
+        if (Movement.andando == true && Movement.andando_rapido == false)
         {
             Value = 2;
         }
