@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Movement : MonoBehaviour
 {
     Rigidbody rb;
-    public float speed = 10f;
+    public float speed = 3f;
+    public GameObject Camera;
+    public GameObject Player;
 
     // Update is called once per frame
 
@@ -14,36 +17,33 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        Vector3 movement = Vector3.zero;
+        Vector3 forward = transform.forward;
+        Vector3 right = transform.right;
 
+        // Move the player based on input and their local rotation
         if (Input.GetKey(KeyCode.W))
         {
-            movement += Vector3.forward;
+            rb.AddForce(forward * speed);
         }
 
         if (Input.GetKey(KeyCode.S))
         {
-            movement += Vector3.back;
+            rb.AddForce(-forward * speed); // Move backward
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            movement += Vector3.left;
+            rb.AddForce(-right * speed); // Move left
         }
 
         if (Input.GetKey(KeyCode.D))
         {
-            movement += Vector3.right;
+            rb.AddForce(right * speed); // Move right
         }
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.V))
         {
-            movement += Vector3.right;
+            rb.MoveRotation(rb.rotation * Quaternion.Euler(0, 1, 0));
         }
-
-        movement = movement.normalized;
-
-        // Move o personagem
-        rb.MovePosition(transform.position + movement);
     }
 }
