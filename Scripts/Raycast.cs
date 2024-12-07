@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 public class Raycast : MonoBehaviour
 {
     public Transform cam;
     public float PlayerActivateDistance;
     bool active = false;
-    static bool bota = false;
+    public static bool bota = false;
 
     // Update is called once per frame
     void Update()
@@ -34,7 +35,7 @@ public class Raycast : MonoBehaviour
             {
                 // Scale the cube
                 Transform cubeTransform = hit.collider.transform;
-                cubeTransform.localScale += Vector3.one; 
+                cubeTransform.localScale += Vector3.one;
             }
         }
     }

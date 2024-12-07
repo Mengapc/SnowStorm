@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 public class Movement : MonoBehaviour
 {
     Rigidbody rb;
-    public static float speed = 10f;
+    public static float speed = 6f;
     public static bool andando = false;
 
 
@@ -28,13 +28,20 @@ public class Movement : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.S))
         {
-            speed = 5f;
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                speed /= 2f;
+            }            
             andando = true;
             transform.position += (-forward * speed * Time.deltaTime); // Move 
         }
-        else
+        else if (Raycast.bota == false)
         {
-            speed = 10f;
+            speed = 6f;
+        }
+        else if (Raycast.bota == true)
+        {
+            speed = 12f;
         }
         if (Input.GetKey(KeyCode.A))
         {
