@@ -5,6 +5,7 @@ public class Raycast : MonoBehaviour
     public Transform cam;
     public float PlayerActivateDistance;
     bool active = false;
+    static bool bota = false;
 
     // Update is called once per frame
     void Update()
@@ -23,6 +24,11 @@ public class Raycast : MonoBehaviour
                 ball.AddComponent<Rigidbody>();
                 ball.transform.position = hit.point; // Place the ball at the raycast hit location
                 ball.transform.position += new Vector3(0, 1, 0);
+            }
+            else if (hit.collider.CompareTag("Item"))
+            {
+                bota = true;
+                Destroy(hit.collider.gameObject);
             }
             else if (hit.collider.CompareTag("Cube"))
             {
