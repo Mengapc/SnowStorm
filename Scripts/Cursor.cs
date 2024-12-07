@@ -24,7 +24,12 @@ public class Cursor : MonoBehaviour
         //Collect Mouse Input
         float inputX = Input.GetAxis("Mouse X") * mouseSensivity;
         float inputY = Input.GetAxis("Mouse Y") * mouseSensivity;
-
+        /*
+        if (Input.GetKey(KeyCode.V))
+        {
+            player.Rotate(Vector3.left * mouseSensivity);
+        }
+        */
         //Rotate the Camera around its local X axis
         cameraVerticalRotation -= inputY;
         cameraVerticalRotation = Mathf.Clamp(cameraVerticalRotation, -90f, 90f);

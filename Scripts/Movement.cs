@@ -39,5 +39,9 @@ public class Movement : MonoBehaviour
         {
             transform.position += (right * speed * Time.deltaTime); // Move right
         }
+        if (Input.GetKey(KeyCode.V))
+        {
+            rb.MoveRotation(rb.rotation * Quaternion.Euler(0, 1, 0));
+        }
     }
 }
