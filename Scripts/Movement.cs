@@ -4,7 +4,8 @@ using UnityEngine.UIElements;
 public class Movement : MonoBehaviour
 {
     Rigidbody rb;
-    public float speed = 10f;
+    public static float speed = 10f;
+    public static bool andando = false;
 
 
     // Update is called once per frame
@@ -19,29 +20,35 @@ public class Movement : MonoBehaviour
         Vector3 forward = transform.forward;
         Vector3 right = transform.right;
 
-        // Move the player based on input and their local rotation
+        // Move the player based on input and their 
         if (Input.GetKey(KeyCode.W))
         {
-            transform.position += (forward * speed * Time.deltaTime); // Move forward
+            transform.position += (forward * speed * Time.deltaTime); // Move forward                
+            andando = true;
         }
-
         if (Input.GetKey(KeyCode.S))
         {
-            transform.position += (-forward * speed * Time.deltaTime); // Move backward
+            speed = 5f;
+            andando = true;
+            transform.position += (-forward * speed * Time.deltaTime); // Move 
         }
-
+        else
+        {
+            speed = 10f;
+        }
         if (Input.GetKey(KeyCode.A))
         {
-            transform.position += (-right * speed * Time.deltaTime); // Move left
+            andando = true;
+            transform.position += (-right * speed * Time.deltaTime); // Move left                
         }
-
         if (Input.GetKey(KeyCode.D))
         {
-            transform.position += (right * speed * Time.deltaTime); // Move right
+            andando = true;
+            transform.position += (right * speed * Time.deltaTime); // Move right             
         }
-        if (Input.GetKey(KeyCode.V))
+        if (Input.GetKey(KeyCode.W) == false && (Input.GetKey(KeyCode.S) == false && (Input.GetKey(KeyCode.D) == false && (Input.GetKey(KeyCode.A) == false))))
         {
-            rb.MoveRotation(rb.rotation * Quaternion.Euler(0, 1, 0));
+            andando = false;
         }
     }
 }
