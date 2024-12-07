@@ -2,17 +2,48 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    public float speed = .1f;
+    Rigidbody rb;
+    public float speed = 10f;
 
     // Update is called once per frame
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
     void Update()
     {
-        float xDirection = Input.GetAxis("Horizontal");
-        float zDirection = Input.GetAxis("Vertical");
+        Vector3 movement = Vector3.zero;
 
-        Vector3 moveDirection = new Vector3(xDirection, 0.0f, zDirection);
+        if (Input.GetKey(KeyCode.W))
+        {
+            movement += Vector3.forward;
+        }
 
-        transform.position += moveDirection * speed * Time.deltaTime;
+        if (Input.GetKey(KeyCode.S))
+        {
+            movement += Vector3.back;
+        }
 
+        if (Input.GetKey(KeyCode.A))
+        {
+            movement += Vector3.left;
+        }
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            movement += Vector3.right;
+        }
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            movement += Vector3.right;
+        }
+
+        movement = movement.normalized;
+
+        // Move o personagem
+        rb.MovePosition(transform.position + movement);
     }
-} 
+}

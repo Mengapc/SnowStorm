@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Cursor : MonoBehaviour
@@ -28,9 +26,14 @@ public class Cursor : MonoBehaviour
         float inputY = Input.GetAxis("Mouse Y") * mouseSensivity;
 
         //Rotate the Camera around its local X axis
+        /*
         cameraVerticalRotation -= inputY;
         cameraVerticalRotation = Mathf.Clamp(cameraVerticalRotation, -90f, 90f);
-        transform.localEulerAngles = Vector3.right * cameraVerticalRotation;
+        transform.localEulerAngles = Vector3.right * cameraVerticalRotation; */
+
+        cameraVerticalRotation = inputY;
+        cameraVerticalRotation = Mathf.Clamp(cameraVerticalRotation, -90f, 90f); 
+        player.Rotate(Vector3.right * cameraVerticalRotation);
 
         //Rotate the Player Object and the Camera around its Y axis
         player.Rotate(Vector3.up * inputX);
