@@ -12,10 +12,7 @@ public class Crosshair : MonoBehaviour
     public float margin;
 
     public RectTransform Center, Top, Bottom, Right, Left;
-    void Start()
-    {
-        
-    }
+
     void Update()
     {
         float TopValue, BottomValue, RightValue, LeftValue;

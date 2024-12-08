@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Assertions.Must;
+using UnityEngine.UIElements;
 
 public class Raycast : MonoBehaviour
 {
@@ -7,6 +8,9 @@ public class Raycast : MonoBehaviour
     public float PlayerActivateDistance;
     bool active = false;
     public static bool bota = false;
+    public static bool tabua = false;
+    public GameObject Tabua_ponte;
+
 
     // Update is called once per frame
     void Update()
@@ -17,26 +21,27 @@ public class Raycast : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F) && active)
         {
-            // Check the tag of the object hit
-            if (hit.collider.CompareTag("Floor"))
-            {
-                // Spawn a sphere at the hit point
-                GameObject ball = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                ball.AddComponent<Rigidbody>();
-                ball.transform.position = hit.point; // Place the ball at the raycast hit location
-                ball.transform.position += new Vector3(0, 1, 0);
-            }
-            else if (hit.collider.CompareTag("Item"))
+            // Check the tag of the object 
+            if (hit.collider.CompareTag("Bota"))
             {
                 bota = true;
                 Destroy(hit.collider.gameObject);
             }
-            else if (hit.collider.CompareTag("Cube"))
+            else if (hit.collider.CompareTag("Tabua"))
             {
                 // Scale the cube
-                Transform cubeTransform = hit.collider.transform;
-                cubeTransform.localScale += Vector3.one;
+                tabua = true;
+                Destroy(hit.collider.gameObject);
             }
+            else if (hit.collider.CompareTag("noWood") && Tabua_ponte.activeSelf == false)
+            {
+                // Scale the cube
+                Tabua_ponte.SetActive(!Tabua_ponte.activeSelf);
+            }
+        /*while (hit.collider.CompareTag("noWood") && Tabua_ponte.activeSelf == false && active)
+            {
+        Aqui vai estar o texto de feedback
+            }*/
         }
     }
 }
