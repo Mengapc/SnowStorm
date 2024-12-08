@@ -10,13 +10,17 @@ public class Raycast : MonoBehaviour
     public Transform cam;
     public float PlayerActivateDistance;
     bool active = false;
+    bool feedbackAtivo = false;
     public static bool bota = false;
     public static bool tabua = false;
-    //public bool doorClosed = true;
+    
     public GameObject Tabua_ponte;
-    public GameObject Feedback;
     public GameObject Porta_cabana;
     public GameObject Porta_cabana_hitbox;
+    
+    public GameObject FeedbackInteracao;
+    public TextMeshProUGUI feedbackinteracao;
+    public GameObject Feedback;
     public TextMeshProUGUI feedback;
 
     IEnumerator Feedback_CD()
@@ -39,17 +43,14 @@ public class Raycast : MonoBehaviour
         active = Physics.Raycast(cam.position, cam.TransformDirection(Vector3.forward), out hit, PlayerActivateDistance);
         Debug.DrawRay(cam.position, cam.TransformDirection(Vector3.forward) * PlayerActivateDistance, Color.red);
 
-        if (Input.GetKeyDown(KeyCode.F) && active)
+        if (Input.GetKeyDown(KeyCode.F) && active == true)
         {
-            if (hit.collider.CompareTag("Porta"))// && doorClosed == true)
+            if (hit.collider.CompareTag("Porta"))
             {
                 //Door Animation
                 Porta_cabana_hitbox.GetComponent<BoxCollider>().enabled = false;
                 Porta_cabana.GetComponent<Animator>().SetTrigger("Activate");
                 StartCoroutine(Porta_CD());
-
-
-                //doorClosed = false;
             }
             // Check the tag of the object 
             if (hit.collider.CompareTag("Bota"))
@@ -74,6 +75,20 @@ public class Raycast : MonoBehaviour
                 Feedback.SetActive(!Feedback.activeSelf);
                 feedback.text = "Não consigo passar por aqui!";
                 StartCoroutine(Feedback_CD());
+            }
+        }
+        if (active == true)
+        {
+            while ((hit.collider.CompareTag("Untagged") == false) && feedbackAtivo == false)
+            {
+                feedbackAtivo = true;
+                FeedbackInteracao.SetActive(!FeedbackInteracao.activeSelf);
+                feedbackinteracao.text = "Use F para interagir!";
+            }
+            if (hit.collider.CompareTag("Untagged") == true && feedbackAtivo == true)
+            {
+                FeedbackInteracao.SetActive(!FeedbackInteracao.activeSelf);
+                feedbackAtivo = false;
             }
         }
     }
