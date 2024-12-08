@@ -33,6 +33,11 @@ public class Raycast : MonoBehaviour
         yield return new WaitForSecondsRealtime(4);
         Feedback.SetActive(!Feedback.activeSelf);
     }
+    IEnumerator ItemTela_CD()
+    {  
+        yield return new WaitForSecondsRealtime(3);
+        tabua_solta.GetComponent<MeshRenderer>().enabled = false;  
+    }
     IEnumerator Porta_CD()
     {
         yield return new WaitForSecondsRealtime(2);
@@ -68,15 +73,21 @@ public class Raycast : MonoBehaviour
                 //Collecting plank
                 tabua = true;
                 tabua_solta.GetComponent<MeshCollider>().enabled = false;
+                tabua_solta.GetComponent<MeshRenderer>().enabled = true;
                 tabua_solta.transform.SetParent(canva);
                 tabua_solta.transform.position = canva.transform.position - new Vector3(2, 1, -1.5f);
-                tabua_solta.layer = 5;            
+                tabua_solta.layer = 5;
+                StartCoroutine(ItemTela_CD());
 
+                //StartCoroutine(ItemTela_CD());
+                //GameObject.FindWithTag("Tabua").transform.position = new Vector3(0, -5, 0);
             }
             else if (hit.collider.CompareTag("noWood") && Tabua_ponte.activeSelf == false && tabua == true)
             {
                 //Activate the plank
                 Tabua_ponte.SetActive(!Tabua_ponte.activeSelf);
+                tabua_solta.GetComponent<MeshRenderer>().enabled = false;
+                Destroy(hit.collider.gameObject);
             }
             else if (hit.collider.CompareTag("noWood") && Tabua_ponte.activeSelf == false && tabua == false)
             {
@@ -95,12 +106,12 @@ public class Raycast : MonoBehaviour
                 feedbackinteracao.text = "Use F para interagir!";
                 if (hit.collider.CompareTag("noWood") == true && tabua == true)
                 {
-                   // GameObject.FindWithTag("Tabua").transform.position = (GameObject.FindWithTag("ming").transform.position + new Vector3(-0.5f, 0, -1));
+                    tabua_solta.GetComponent<MeshRenderer>().enabled = true;
                 }
-                else if (hit.collider.CompareTag("noWood") == false && tabua == true)
-                {
-                    //GameObject.FindWithTag("Tabua").transform.position = new Vector3(0, -5, 0);
-                }
+            }
+            if (hit.collider.CompareTag("noWood") == false && tabua == true)
+            {
+                tabua_solta.GetComponent<MeshRenderer>().enabled = false;
             }
             if (hit.collider.CompareTag("Untagged") == true && feedbackAtivo == true)
             {
