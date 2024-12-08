@@ -12,8 +12,11 @@ public class Raycast : MonoBehaviour
     bool active = false;
     public static bool bota = false;
     public static bool tabua = false;
+    //public bool doorClosed = true;
     public GameObject Tabua_ponte;
     public GameObject Feedback;
+    public GameObject Porta_cabana;
+    public GameObject Porta_cabana_hitbox;
     public TextMeshProUGUI feedback;
 
     IEnumerator Feedback_CD()
@@ -21,14 +24,16 @@ public class Raycast : MonoBehaviour
         yield return new WaitForSecondsRealtime(4);
         Feedback.SetActive(!Feedback.activeSelf);
     }
-
-    void Start()
+    IEnumerator Porta_CD()
     {
-
+        yield return new WaitForSecondsRealtime(2);
+        Porta_cabana_hitbox.transform.GetComponent<BoxCollider>().enabled = true;
+        Porta_cabana.GetComponent<Animator>().SetTrigger("Activate");
     }
 
-// Update is called once per frame
-void Update()
+
+    // Update is called once per frame
+    void Update()
     {
         RaycastHit hit;
         active = Physics.Raycast(cam.position, cam.TransformDirection(Vector3.forward), out hit, PlayerActivateDistance);
@@ -36,6 +41,16 @@ void Update()
 
         if (Input.GetKeyDown(KeyCode.F) && active)
         {
+            if (hit.collider.CompareTag("Porta"))// && doorClosed == true)
+            {
+                //Door Animation
+                Porta_cabana_hitbox.GetComponent<BoxCollider>().enabled = false;
+                Porta_cabana.GetComponent<Animator>().SetTrigger("Activate");
+                StartCoroutine(Porta_CD());
+
+
+                //doorClosed = false;
+            }
             // Check the tag of the object 
             if (hit.collider.CompareTag("Bota"))
             {
@@ -51,7 +66,7 @@ void Update()
             else if (hit.collider.CompareTag("noWood") && Tabua_ponte.activeSelf == false && tabua == true)
             {
                 //Activate the plank
-                Tabua_ponte.SetActive(!Tabua_ponte.activeSelf);                
+                Tabua_ponte.SetActive(!Tabua_ponte.activeSelf);
             }
             else if (hit.collider.CompareTag("noWood") && Tabua_ponte.activeSelf == false && tabua == false)
             {

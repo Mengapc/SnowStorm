@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 27669175666dfd74a9fabb9f3ac6f662
+guid: 70524bf14dfc6d446a9f5fffad3cbd9b
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,8 +7,33 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Madeira Base
+    second: {fileID: 2100000, guid: c461323830fdbfc47976044d18a2472f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Madeira2
+    second: {fileID: 2100000, guid: fc0bd96844b66124487724e9b3df4aab, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Madeira2.001
+    second: {fileID: 2100000, guid: 69cf3544ac9520e4f9693455f4e36853, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Madeira2.002
+    second: {fileID: 2100000, guid: cd72ac18235d1f540a6aa86bd0fdb0b9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Material.001
-    second: {fileID: 2100000, guid: b640589f91f0be446b8b42d41b0e3099, type: 2}
+    second: {fileID: 2100000, guid: ff651c91da4899740aeed4e725ca3a03, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.003
+    second: {fileID: 2100000, guid: 3b507c1f821bea24eaa94c60457b4b31, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
