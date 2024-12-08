@@ -1,5 +1,7 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class Raycast : MonoBehaviour
@@ -10,6 +12,7 @@ public class Raycast : MonoBehaviour
     public static bool bota = false;
     public static bool tabua = false;
     public GameObject Tabua_ponte;
+    public GameObject Feedback;
 
 
     // Update is called once per frame
@@ -29,19 +32,24 @@ public class Raycast : MonoBehaviour
             }
             else if (hit.collider.CompareTag("Tabua"))
             {
-                // Scale the cube
+                //Collecting plank
                 tabua = true;
                 Destroy(hit.collider.gameObject);
             }
-            else if (hit.collider.CompareTag("noWood") && Tabua_ponte.activeSelf == false)
+            else if (hit.collider.CompareTag("noWood") && Tabua_ponte.activeSelf == false && tabua == true)
             {
-                // Scale the cube
-                Tabua_ponte.SetActive(!Tabua_ponte.activeSelf);
+                //Activate the plank
+                Tabua_ponte.SetActive(!Tabua_ponte.activeSelf);                
             }
-        /*while (hit.collider.CompareTag("noWood") && Tabua_ponte.activeSelf == false && active)
+            else if (hit.collider.CompareTag("noWood") && Tabua_ponte.activeSelf == false && tabua == false)
             {
-        Aqui vai estar o texto de feedback
-            }*/
+                //Activate Text
+                Feedback.SetActive(!Feedback.activeSelf);
+            }
+            /*while (hit.collider.CompareTag("noWood") && Tabua_ponte.activeSelf == false && active)
+                {
+            Aqui vai estar o texto de feedback
+                }*/
         }
     }
 }
