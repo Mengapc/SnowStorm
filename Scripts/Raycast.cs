@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Assertions.Must;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using System.Collections;
 
 public class Raycast : MonoBehaviour
 {
@@ -13,10 +14,21 @@ public class Raycast : MonoBehaviour
     public static bool tabua = false;
     public GameObject Tabua_ponte;
     public GameObject Feedback;
+    public TextMeshProUGUI feedback;
 
+    IEnumerator Feedback_CD()
+    {
+        yield return new WaitForSecondsRealtime(4);
+        Feedback.SetActive(!Feedback.activeSelf);
+    }
 
-    // Update is called once per frame
-    void Update()
+    void Start()
+    {
+
+    }
+
+// Update is called once per frame
+void Update()
     {
         RaycastHit hit;
         active = Physics.Raycast(cam.position, cam.TransformDirection(Vector3.forward), out hit, PlayerActivateDistance);
@@ -45,11 +57,9 @@ public class Raycast : MonoBehaviour
             {
                 //Activate Text
                 Feedback.SetActive(!Feedback.activeSelf);
+                feedback.text = "Não consigo passar por aqui!";
+                StartCoroutine(Feedback_CD());
             }
-            /*while (hit.collider.CompareTag("noWood") && Tabua_ponte.activeSelf == false && active)
-                {
-            Aqui vai estar o texto de feedback
-                }*/
         }
     }
 }
