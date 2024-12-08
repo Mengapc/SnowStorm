@@ -4,6 +4,8 @@ using UnityEngine.Assertions.Must;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using System.Collections;
+using UnityEditor.Search;
+using Unity.VisualScripting;
 
 public class Raycast : MonoBehaviour
 {
@@ -17,7 +19,10 @@ public class Raycast : MonoBehaviour
     public GameObject Tabua_ponte;
     public GameObject Porta_cabana;
     public GameObject Porta_cabana_hitbox;
-    
+    public GameObject tabua_solta;
+
+    public Transform canva;
+
     public GameObject FeedbackInteracao;
     public TextMeshProUGUI feedbackinteracao;
     public GameObject Feedback;
@@ -58,11 +63,15 @@ public class Raycast : MonoBehaviour
                 bota = true;
                 Destroy(hit.collider.gameObject);
             }
-            else if (hit.collider.CompareTag("Tabua"))
+            else if (hit.collider.CompareTag("Tabua") && tabua != true)
             {
                 //Collecting plank
                 tabua = true;
-                Destroy(hit.collider.gameObject);
+                tabua_solta.GetComponent<MeshCollider>().enabled = false;
+                tabua_solta.transform.SetParent(canva);
+                tabua_solta.transform.position = canva.transform.position - new Vector3(2, 1, -1.5f);
+                tabua_solta.layer = 5;            
+
             }
             else if (hit.collider.CompareTag("noWood") && Tabua_ponte.activeSelf == false && tabua == true)
             {
@@ -84,6 +93,14 @@ public class Raycast : MonoBehaviour
                 feedbackAtivo = true;
                 FeedbackInteracao.SetActive(!FeedbackInteracao.activeSelf);
                 feedbackinteracao.text = "Use F para interagir!";
+                if (hit.collider.CompareTag("noWood") == true && tabua == true)
+                {
+                   // GameObject.FindWithTag("Tabua").transform.position = (GameObject.FindWithTag("ming").transform.position + new Vector3(-0.5f, 0, -1));
+                }
+                else if (hit.collider.CompareTag("noWood") == false && tabua == true)
+                {
+                    //GameObject.FindWithTag("Tabua").transform.position = new Vector3(0, -5, 0);
+                }
             }
             if (hit.collider.CompareTag("Untagged") == true && feedbackAtivo == true)
             {
